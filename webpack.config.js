@@ -1,3 +1,4 @@
+var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 
@@ -19,16 +20,16 @@ module.exports = {
         'presets': ['es2015', 'stage-2', 'react'],
         'plugins': ['react-hot-loader/babel']
       }
-    },  {
-        test: /\.css$/,
-        loader: 'style!css!postcss'
+    }, {
+      test: /\.css$/,
+      loader: 'style!css!postcss'
     }]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
   output: {
-    path: __dirname + '/dist',
+    path: path.join(__dirname, '/dist'),
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -41,9 +42,9 @@ module.exports = {
     hot: true
   },
   postcss: function() {
-  return [autoprefixer];
-},
+    return [autoprefixer];
+  },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };

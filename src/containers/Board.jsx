@@ -7,6 +7,24 @@ import Square from '../components/Square';
 import * as Actions from '../actions/creators';
 
 const Board = ({width, height, grid, actions}) => {
+  const handleKey = (e) => {
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+      // up arrow
+      console.log('Key Up!');
+    }
+    else if (e.keyCode == '40') {
+        // down arrow
+    }
+    else if (e.keyCode == '37') {
+       // left arrow
+    }
+    else if (e.keyCode == '39') {
+       // right arrow
+    }
+  };
+
   let rows = [];
 
   for (let y = 0; y < height; y++) {
@@ -22,9 +40,14 @@ const Board = ({width, height, grid, actions}) => {
     rows.push(<Row key={y}>{row}</Row>);
   }
 
-  return <div>{rows}</div>;
+  return <div onKeyDown={handleKey}>{rows}</div>;
 };
 
+function checkKey(e) {
+
+
+
+}
 /**
  * Map the state to props.
  */

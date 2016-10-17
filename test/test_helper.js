@@ -1,3 +1,4 @@
+/* eslint-env node, mocha */
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 import jsdom from 'jsdom';

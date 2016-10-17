@@ -38,9 +38,9 @@ export function pickupWeapon(weapon) {
   };
 }
 
-export function moveCharacter(newCoords) {
+export function setPosition(newCoords) {
   return {
-    type: 'MOVE_CHARACTER',
+    type: 'SET_POSITION',
     newCoords
-  }
+  };
 }

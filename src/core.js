@@ -27,6 +27,6 @@ export function pickupWeapon(characterState, weapon) {
   return characterState.set('weapon', weapon);
 }
 
-export function moveCharacter(characterState, newCoords) {
-  return characterState.set('position', newCoords);
+export function setPosition(characterState, newCoords) {
+  return characterState.set('position', List(newCoords));
 }

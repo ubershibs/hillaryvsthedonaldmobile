@@ -41,8 +41,7 @@ const enhancer = compose(
   DevTools.instrument()
 );
 
-export const store = createStore(reducer, initialState, enhancer);
-
+const store = createStore(reducer, initialState, enhancer);
 const rootElement = document.getElementById('root');
 
 render(
