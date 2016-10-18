@@ -2,29 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import Row from '../components/Row';
-import Square from '../components/Square';
+import Board from './Board.jsx';
 import * as Actions from '../actions/creators';
 
-const Board = ({width, height, grid, actions}) => {
+const GameContainer = ({grid, width, height, ) => {
 
-  let rows = [];
 
-  for (let y = 0; y < height; y++) {
-    const row = [];
-    for (let x = 0; x < width; x++) {
-      row.push(
-        <Square
-          key={x}
-          fill={grid[y * width + x]}
-        />
-      );
-    }
-    rows.push(<Row key={y}>{row}</Row>);
-  }
-
-  return <div >{rows}</div>;
-};
+  return <Board />
+}
 
 /**
  * Map the state to props.
@@ -32,7 +17,8 @@ const Board = ({width, height, grid, actions}) => {
 const mapStateToProps = (state) => ({
   grid: state.board.grid,
   width: state.board.width,
-  height: state.board.height
+  height: state.board.height,
+  position: state.character.position
 });
 
 /**
@@ -49,4 +35,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Board);
+)(GameContainer);
