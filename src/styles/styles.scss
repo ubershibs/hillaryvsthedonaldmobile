@@ -1,0 +1,33 @@
+$sqSide: 20px;
+
+.square {
+  width: $sqSide;
+  height: $sqSide;
+  border: 1px solid black;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.messageBox {
+  font-family: monospace;
+  font-size: 16px;
+  width: 70%;
+  margin: 10px auto;
+  border: 1px solid black;
+}
+
+.alert {
+  color: lightgray;
+  background-color: red;
+  padding: 5px;
+}
+
+.inform {
+  color: black;
+  background-color: lightgray;
+  padding: 5px;
+}
