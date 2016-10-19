@@ -1,3 +1,4 @@
+import {Map, List} from 'immutable';
 import {setBoard, updateSquare, resetCharacter, setLevels, pickupWeapon, setPosition, INITIAL_STATE} from './core';
 
 export default function reducer(state = INITIAL_STATE, action) {

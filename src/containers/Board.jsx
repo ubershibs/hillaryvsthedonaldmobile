@@ -9,6 +9,7 @@ import * as Actions from '../actions/creators';
 class Board extends React.Component {
   constructor(props) {
     super(props);
+    this.checkMove = this.checkMove.bind(this);
   }
   render() {
     let rows = [];
@@ -31,23 +32,26 @@ class Board extends React.Component {
   }
   checkKey(e) { //
     e = e || window.event;
-    switch(e.keyCode) {
-      case '38': // Up
-        e.preventDefault();
-        checkMove(0, 1);
-        break;
-      case '40': // Down
-        e.preventDefault();
-        checkMove(0, 1);
-        break;
-      case '37': // Left
-        e.preventDefault();
-        checkMove(-1, 0);
-        break;
-      case '39': // Right
-        e.preventDefault();
-        checkMove(1, 0);
-        break;
+    console.log(e.keyCode);
+    if (e.keyCode == '38') {
+      // up
+      e.preventDefault();
+      this.checkMove(0, -1);
+    }
+    else if (e.keyCode == '40') {
+      // down arrow
+      e.preventDefault();
+      this.checkMove(0, 1);
+    }
+    else if (e.keyCode == '37') {
+      // left arrow
+      e.preventDefault();
+      this.checkMove(-1, 0);
+    }
+    else if (e.keyCode == '39') {
+      // right arrow
+      e.preventDefault();
+      this.checkMove(1, 0);
     }
   }
   checkMove(deltaX, deltaY) {
@@ -56,9 +60,9 @@ class Board extends React.Component {
     const newSquareValue = this.props.grid[newY * this.props.width + newX];
     console.log(newX + 'x' + newY + ': ' + newSquareValue);
     if (newSquareValue == 0) {
-      this.props.actions.setPosition([newX, newY]);
-      this.props.actions.updateSquare(newX, newY, 2);
-      this.props.actions.updateSquare(this.props.position[0],this.props.position[1], 0);
+    //  this.props.actions.setPosition([newX, newY]);
+    this.props.actions.updateSquare(newX, newY, 2);
+    //  this.props.actions.updateSquare(this.props.position[0],this.props.position[1], 0);
     }
   }
 };
@@ -70,7 +74,7 @@ const mapStateToProps = (state) => ({
   grid: state.board.grid,
   width: state.board.width,
   height: state.board.height,
-  position: state.character.positionm
+  position: state.character.position
 });
 
 /**
