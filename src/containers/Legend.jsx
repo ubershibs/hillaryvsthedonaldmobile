@@ -10,7 +10,7 @@ class Legend extends React.Component {
       <div>
         <h3>Hillary's Stats</h3>
         <p><strong>Level:</strong> {this.props.character.level}</p>
-        <p><strong>Health:</strong> {health}&#37</p>
+        <p><strong>Health:</strong> {health}&#37;</p>
         <p><strong>XP:</strong> {this.props.character.xp} / {levels[this.props.character.level]}</p>
         <p><strong>Armed with:</strong> {weapons[this.props.character.weapon][0]}</p>
       </div>

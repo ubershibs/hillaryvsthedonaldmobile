@@ -26,14 +26,26 @@ class Board extends React.Component {
 const Row = ({children}) => <div className="row">{children}</div>;
 
 const Square = ({children, fill = false}) => (
-  <div
-    className="square"
-    style={{
-      backgroundColor:  fill > 0 ? fill === 2 ? 'blue' : '#000' : '#fff'
-    }}
-  >
+  <div className={getBackgroundColor(fill)} >
     {fill}{children}
   </div>
 );
 
 export default Board;
+
+function getBackgroundColor(fill) {
+  switch (fill) {
+    case 1:
+      return "square wall";
+    case 2:
+      return "square character";
+    case 11:
+      return "square level1";
+    case 12:
+      return "square level2";
+    case 5:
+      return "square heart";
+    default:
+      return "square floor";
+  }
+}
