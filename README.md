@@ -1,7 +1,8 @@
-# My Dungeon Crawler
+# Hillary vs. The Donald
+In this dungeon crawler game, Hillary needs to defeat The Donald and his merry band of surrogates (plus Kellyanne Conway), in her quest to win the White House.
 
-## Resources I Used
+I made this dungeons crawler game to satisfy the requirements of [this Free Code Camp project](https://www.freecodecamp.com/challenges/build-a-roguelike-dungeon-crawler-game), part of the Data Visualization track.
 
-## Resources That Helped Me
-* Tero Parviainen's [Full-Stack Redux Tutorial](http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html) - this is my first time using Redux... Tero's tutorial was a big help to my understanding of Redux and of immutable data. Also got me into writing unit tests, finally!
-* Andreas Argelius' post []'Managing your React State with Redux' on Onsen.io](https://onsen.io/blog/react-state-management-redux-store/) - this was a much simpler and more directly relatable example, but wasn't as comprehensive as Tero's.
+You can play it on [Codepen](http://codepen.io/ubershibs/full/xEyvgO/).
+
+*A note on the art*: I made all the art with images that Google Image Search told me were labelled for reuse.

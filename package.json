@@ -60,6 +60,7 @@
   "dependencies": {
     "extract-text-webpack-plugin": "^1.0.1",
     "immutable": "^3.8.1",
+    "lodash": "^4.16.4",
     "promise": "^7.1.1",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.3.2",

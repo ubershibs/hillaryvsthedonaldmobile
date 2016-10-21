@@ -1,24 +1,58 @@
-$sqSide: 20px;
+$sqSide: 30px;
 $villain: rgb(164, 19, 28);
 
+h1 {
+  font-family: monospace;
+  font-size: 50px;
+  text-align: center;
+}
+.board {
+  margin: 10px auto;
+  width: 900px;
+}
 .square {
   width: $sqSide;
   height: $sqSide;
   border: 1px solid black;
+  box-sizing: border-box;
 }
 
 .row {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  width: 900px;
 }
 
 .messageBox {
   font-family: monospace;
   font-size: 16px;
-  width: 70%;
+  width: 900px;
   margin: 10px auto;
   border: 1px solid black;
+}
+
+.hit {
+  background-color: red;
+  color: lightgray;
+  padding: 5px;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@keyframes flash {
+  0%, 50%, 100% {
+     opacity: 1;
+  }
+  25%, 75% {
+     opacity: 0;
+  }
+}
+
+.flash {
+  animation-name: flash;
 }
 
 .alert {
@@ -33,18 +67,40 @@ $villain: rgb(164, 19, 28);
   padding: 5px;
 }
 
+.good {
+  color: black;
+  background-color: springgreen;
+  padding: 5px;
+}
+
 .character {
-  background-color: rgba(0, 0, 255, 0.8);
+  background-image: url("http://lukewalker.org/fcc/dungeon/images/hillary.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+
+.theDonald {
+  background-image: url("http://lukewalker.org/fcc/dungeon/images/donald.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
 }
 
 .wall {
-  background-color: #000;
+  background-color: darkslategray;
 }
 
 .floor {
-  background-color: #fff;
+  background-color: darkgray;
 }
 
+.level1, .level2, .level3, .level4 {
+  background-image: url("http://lukewalker.org/fcc/dungeon/images/surrogate.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
 .level1 {
   background-color: lighten($villain, 55%);
 }
@@ -52,10 +108,145 @@ $villain: rgb(164, 19, 28);
 .level2 {
   background-color: lighten($villain, 40%);
 }
-
-.heart {
-  background-image: url("../images/heart.png");
+.level3 {
+  background-color: lighten($villain, 25%);
+}
+.level4 {
+  background-color: lighten($villain, 10%);
+}
+.level5 {
+  background-image: url("http://lukewalker.org/fcc/dungeon/images/kellyanne.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
+}
+
+.heart {
+  background-image: url("http://lukewalker.org/fcc/dungeon/images/heart.png");
+  background-color: gray;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+
+.weapon {
+  background-image: url("http://lukewalker.org/fcc/dungeon/images/greecross.png");
+  background-color: gray;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+}
+
+.lose, .win, .intro {
+  width: 60%;
+  max-height: 550px;
+  padding: 10px;
+  height: auto;
+  margin: 10px auto;
+  font-family: monospace;
+  border: 2px solid black;
+  text-align: center;
+  h2 {
+    font-size: 50px;
+    margin: 50px auto;
+  }
+  p {
+    display: block;
+    margin-bottom: 50px;
+    font-size: 20px;
+  }
+  .small {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+}
+
+.lose, .intro {
+  background-color: lightgray;
+}
+
+.win {
+  background-color: springgreen;
+}
+
+.legendBox {
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.legend1 {
+  margin: 0 20px;
+  h3 {
+    font-family: monospace;
+    font-size: 20px;
+    text-align: center;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  li {
+    font-family: monospace;
+  }
+}
+
+.legend2, .legend3 {
+  margin: 0 20px;
+  h3 {
+    font-family: monospace;
+    font-size: 20px;
+    text-align: center;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  li {
+    font-family: monospace;
+  }
+  div {
+    display: inline-block;
+    width: $sqSide;
+    height: $sqSide;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 1px solid black;
+  }
+  .hillary {
+    background-image: url("http://lukewalker.org/fcc/dungeon/images/hillary.png");
+  }
+  .surrogate {
+    background-image: url("http://lukewalker.org/fcc/dungeon/images/surrogate.png");
+  }
+  .kellyanne {
+    background-image: url("http://lukewalker.org/fcc/dungeon/images/kellyanne.png");
+  }
+  .theDonald {
+    background-image: url("http://lukewalker.org/fcc/dungeon/images/donald.png");
+  }
+  .heart {
+    background-image: url("http://lukewalker.org/fcc/dungeon/images/heart.png");
+  }
+  .weapon {
+    background-image: url("http://lukewalker.org/fcc/dungeon/images/greencross.png");
+  }
+}
+
+.lights {
+  font-family: monospace;
+  font-size: 15px;
+  border: 1px solid black;
+  background-color: yellow;
+  margin: 5px auto;
+}
+
+.dark {
+  background-color: #000;
 }
