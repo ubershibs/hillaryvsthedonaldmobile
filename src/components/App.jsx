@@ -8,7 +8,51 @@ require('../styles/styles.scss');
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
+    this.state = this.resetState();
+    this.handleKey = this.handleKey.bind(this);
+    this.checkMove = this.checkMove.bind(this);
+    this.placeVillains = this.placeVillains.bind(this);
+    this.placeHealth = this.placeHealth.bind(this);
+    this.fightVillain = this.fightVillain.bind(this);
+    this.boostHealth = this.boostHealth.bind(this);
+    this.toggleLights = this.toggleLights.bind(this);
+    this.placeWeapons = this.placeWeapons.bind(this);
+    this.boostWeapon = this.boostWeapon.bind(this);
+    this.hideIntro = this.hideIntro.bind(this);
+    this.fightTheDonald = this.fightTheDonald.bind(this);
+    this.debounceHandleKey = this.debounceHandleKey.bind(this);
+    this.getState = this.getState.bind(this);
+    this.reset = this.reset.bind(this);
+    this.resetState = this.resetState.bind(this);
+  }
+  render() {
+    const viewMask = [];
+    const boardSize = { width: 9, height: 9 };
+    const viewMaskWidth = [this.state.position[0] - 4, this.state.position[0] + 4];
+    const viewMaskHeight = [this.state.position[1] - 4, this.state.position[1] + 4];
+    console.log(viewMaskHeight, viewMaskWidth);
+    for (let y = viewMaskHeight[0]; y <= viewMaskHeight[1]; y++) {
+      for (let x = viewMaskWidth[0]; x <= viewMaskWidth[1]; x++) {
+        if (y < 0 || x < 0 || x >= this.state.boardSize.width || y >= this.state.boardSize.width) {
+          viewMask.push(1);
+        } else {
+          viewMask.push(this.state.grid[y * 30 + x]);
+        }
+      };
+    };
+    return (
+      <div>
+        <h1>Hillary vs. The Donald</h1>
+        <Legend character={this.state.character} toggleLights={this.toggleLights}/>
+        <div className='messageBox'>
+          <Message message={this.state.message.text} type={this.state.message.type} />
+        </div>
+         <Board onChange={this.hideIntro} reset={this.reset} gameStatus = {this.state.gameStatus} lights={this.state.lights} boardSize={boardSize} grid={viewMask} position={[4, 4]} />
+      </div>
+    );
+  }
+  getState() {
+    const newState = {
       boardSize: {
         width: 30,
         height: 19
@@ -32,9 +76,9 @@ class App extends React.Component {
         1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
         1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
         1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
       ],
-      position: [2,2],
+      position: [2, 2],
       character: {
         level: 1,
         xp: 0,
@@ -50,35 +94,21 @@ class App extends React.Component {
       gameStatus: 3,
       lights: 'off'
     };
-    this.handleKey = this.handleKey.bind(this);
-    this.checkMove = this.checkMove.bind(this);
-    this.placeVillains = this.placeVillains.bind(this);
-    this.placeHealth = this.placeHealth.bind(this);
-    this.fightVillain = this.fightVillain.bind(this);
-    this.boostHealth = this.boostHealth.bind(this);
-    this.toggleLights = this.toggleLights.bind(this);
-    this.placeWeapons = this.placeWeapons.bind(this);
-    this.boostWeapon = this.boostWeapon.bind(this);
-    this.hideIntro = this.hideIntro.bind(this);
-    this.fightTheDonald = this.fightTheDonald.bind(this);
-    this.debounceHandleKey = this.debounceHandleKey.bind(this);
+    return newState;
   }
-  render() {
-    return (
-      <div>
-        <h1>Hillary vs. The Donald</h1>
-        <Legend character={this.state.character} toggleLights={this.toggleLights}/>
-        <Board onChange={this.hideIntro} gameStatus = {this.state.gameStatus} lights={this.state.lights} boardSize={this.state.boardSize} grid={this.state.grid} position={this.state.position} />
-        <div className="messageBox">
-          <Message message={this.state.message.text} type={this.state.message.type} />
-        </div>
-      </div>
-    )
-  };
+  reset() {
+    const newState = this.resetState();
+    this.setState(newState);
+  }
+  resetState() {
+    const newState = this.getState();
+    const newState2 = this.placeVillains(newState);
+    const newState3 = this.placeHealth(newState2);
+    const newState4 = this.placeWeapons(newState3);
+    return newState4;
+  }
   componentWillMount() {
-    this.placeVillains();
-    this.placeHealth();
-    this.placeWeapons();
+    console.log('componentWillMount');
   }
   componentDidMount() {
     window.addEventListener('keydown', this.debounceHandleKey, false);
@@ -89,7 +119,7 @@ class App extends React.Component {
     if (character.xp >= levels[character.level]) {
       character.level += 1;
       character.health = levels[character.level];
-      this.setState({ character: character, message: { text: "You levelled up!", type: "good"} });
+      this.setState({ character: character, message: { text: 'You levelled up!', type: 'good' } });
     }
     if (this.state.gameStatus === 0) {
       window.removeEventListener('keydown', this.handleKey, false);
@@ -103,7 +133,7 @@ class App extends React.Component {
     lights = lights === 'off' ? 'on' : 'off';
     this.setState({ lights: lights });
   }
-  placeVillains() {
+  placeVillains(newState) {
     const levels = [0, 100, 250, 450, 700, 1000, 1350, 1750, 2200, 2700];
     const rooms = [
       {xRange: [0, 10], yRange: [0, 10]},
@@ -113,16 +143,15 @@ class App extends React.Component {
       {xRange: [11, 20], yRange: [11, 19]},
       {xRange: [0, 10], yRange: [11, 19]}
     ];
-    const grid = this.state.grid;
-    const villains = this.state.villains;
+    newState.villains = [];
     let villain = 11;
     rooms.forEach(room => {
       if (villain < 16) {
-        for(let i = 0; i < 6; i++) {
-          const coords = getRandomCoords(room, grid, this.state.boardSize.width);
-          grid[coords[1] * this.state.boardSize.width + coords[0]] = villain;
-          villains.push({
-            position: coords[1] * this.state.boardSize.width + coords[0],
+        for (let i = 0; i < 6; i++) {
+          const coords = getRandomCoords(room, newState.grid, newState.boardSize.width);
+          newState.grid[coords[1] * newState.boardSize.width + coords[0]] = villain;
+          newState.villains.push({
+            position: coords[1] * newState.boardSize.width + coords[0],
             level: villain - 10,
             health: levels[villain - 10]
           });
@@ -130,9 +159,9 @@ class App extends React.Component {
       }
       villain++;
     });
-    this.setState({ grid: grid, villains: villains });
+    return newState;
   }
-  placeHealth() {
+  placeHealth(newState) {
     const rooms = [
       {xRange: [0, 10], yRange: [0, 10]},
       {xRange: [11, 20], yRange: [0, 10]},
@@ -141,52 +170,50 @@ class App extends React.Component {
       {xRange: [11, 20], yRange: [11, 19]},
       {xRange: [0, 10], yRange: [11, 19]}
     ];
-    const grid = this.state.grid;
     rooms.forEach(room => {
-      for(let i = 0; i < 4; i++) {
-        const coords = getRandomCoords(room, grid, this.state.boardSize.width);
-        grid[coords[1] * this.state.boardSize.width + coords[0]] = 5;
+      for (let i = 0; i < 4; i++) {
+        const coords = getRandomCoords(room, newState.grid, newState.boardSize.width);
+        newState.grid[coords[1] * newState.boardSize.width + coords[0]] = 5;
       };
     });
+    return newState;
   }
-  placeWeapons() {
+  placeWeapons(newState) {
     const rooms = [
       {xRange: [11, 20], yRange: [0, 10]},
       {xRange: [21, 30], yRange: [0, 10]},
       {xRange: [21, 30], yRange: [11, 19]},
       {xRange: [11, 20], yRange: [11, 19]}
     ];
-    const grid = this.state.grid;
     rooms.forEach(room => {
-      const coords = getRandomCoords(room, grid, this.state.boardSize.width);
-      grid[coords[1] * this.state.boardSize.width + coords[0]] = 6;
+      const coords = getRandomCoords(room, newState.grid, newState.boardSize.width);
+      newState.grid[coords[1] * newState.boardSize.width + coords[0]] = 6;
     });
+    return newState;
   }
   debounceHandleKey(e) {
+    const arrows = [37, 38, 39, 40, 76];
+    if (arrows.indexOf(e.keyCode) > -1) {
+      e.preventDefault();
+    }
     const debounced = _.debounce(this.handleKey, 250);
     debounced(e);
   }
   handleKey(e) {
     e = e || window.event;
-    if (e.keyCode == '38') {
+    if (e.keyCode === 38) {
       // up arrow
-      e.preventDefault();
-      debounce(this.checkMove(0,-1), 5000);
-    } else if (e.keyCode == '40') {
+      this.checkMove(0, -1);
+    } else if (e.keyCode === 40) {
       // down arrow
-      e.preventDefault();
       this.checkMove(0, 1);
-    } else if (e.keyCode == '37') {
+    } else if (e.keyCode === 37) {
       // left arrow
-      e.preventDefault();
       this.checkMove(-1, 0);
-    }
-    else if (e.keyCode == '39') {
+    } else if (e.keyCode === 39) {
       // right arrow
-      e.preventDefault();
       this.checkMove(1, 0);
-    } else if (e.keyCode == '76') {
-      e.preventDefault();
+    } else if (e.keyCode === 76) {
       this.toggleLights();
     }
   }
@@ -195,12 +222,11 @@ class App extends React.Component {
     const grid = this.state.grid;
     const newX = this.state.position[0] + x;
     const newY = this.state.position[1] + y;
-    const newSqValue = grid[newY * this.state.boardSize.width + newX]
+    const newSqValue = grid[newY * this.state.boardSize.width + newX];
     if (newSqValue === 1) {
       validMove = false;
-      this.setState({ message: { type: 'alert', text: 'You hit a wall' } })
+      this.setState({ message: { type: 'alert', text: 'You hit a wall' } });
     } else if (newSqValue > 10 && newSqValue <= 20) {
-      console.log('hit a surrogate');
       validMove = this.fightVillain(newSqValue, newX, newY);
     } else if (newSqValue === 5) {
       this.boostHealth();
@@ -212,7 +238,7 @@ class App extends React.Component {
       validMove = this.fightTheDonald();
     } else {
       validMove = true;
-      this.setState({ message: { type: 'inform', text: 'Use arrow keys to move' } })
+      this.setState({ message: { type: 'inform', text: 'Use arrow keys to move' } });
     }
     if (validMove) {
       grid[this.state.position[1] * this.state.boardSize.width + this.state.position[0]] = 0;
@@ -233,10 +259,9 @@ class App extends React.Component {
     const character = this.state.character;
     character.weapon += 1;
     character.xp += 20;
-    this.setState({ character: character, message: `You picked up ${weapons[character.weapon]}. 10% battle bonus.`, type: 'good'});
+    this.setState({ character: character, message: `You picked up ${weapons[character.weapon]}. 10% battle bonus.`, type: 'good' });
   }
   fightVillain(type, x, y) {
-    console.log('start fight');
     const levels = [0, 100, 250, 450, 700, 1000, 1350, 1750, 2200, 2700];
     const opponent = this.state.villains.find(villain => villain.position === y * this.state.boardSize.width + x);
     const villains = this.state.villains;
@@ -251,13 +276,13 @@ class App extends React.Component {
         return false;
       } else if (you.health <= 0) {
         you.health = 0;
-        this.setState({ villains: villains, character: you, message: { text: `Level ${opponent.level} surrogate: he killed you. Game over.`, type: 'alert'}, gameStatus: 0 });
+        this.setState({ villains: villains, character: you, message: { text: `Level ${opponent.level} surrogate: he killed you. Game over.`, type: 'alert' }, gameStatus: 0 });
         return false;
       }
     } else if (opponent.health <= 0) {
       villains.splice(index, 1);
       you.xp += 25 * opponent.level;
-      this.setState({ villains: villains, character: you, message: { text: `Level ${opponent.level} surrogate: You killed him.`, type: 'good'} });
+      this.setState({ villains: villains, character: you, message: { text: `Level ${opponent.level} surrogate: You killed him.`, type: 'good' } });
       return true;
     }
   }
@@ -269,15 +294,15 @@ class App extends React.Component {
     if (theDonald > 0) {
       you.health -= damageCalculation(80, 140, 0);
       if (you.health > 0) {
-        this.setState({ character: you, theDonald: theDonald, message: { text: `You reduced The Donald's health to ${Math.floor(theDonald / 1000 * 100)}%; he reduced yours to ${Math.floor(you.health / levels[you.level] * 100)}%`, type: 'hit'}});
+        this.setState({ character: you, theDonald: theDonald, message: { text: `You reduced The Donald's health to ${Math.floor(theDonald / 1000 * 100)}%; he reduced yours to ${Math.floor(you.health / levels[you.level] * 100)}%`, type: 'hit' } });
         return false;
-      } else if (you.health <= 0){
+      } else if (you.health <= 0) {
         you.health = 0;
-        this.setState({ theDonald: theDonald, character: you, message: { text: 'The Donald defeated you. Better luck next time.', type: 'lose'}, gameStatus: 0});
+        this.setState({ theDonald: theDonald, character: you, message: { text: 'The Donald defeated you. Better luck next time.', type: 'lose' }, gameStatus: 0 });
         return false;
       }
     } else if (theDonald <= 0) {
-      this.setState({ theDonald: 0, character: you, message: { text: 'You defeated The Donald! Congrats, President-Elect Hillary', type: 'good'}, gameStatus: 2});
+      this.setState({ theDonald: 0, character: you, message: { text: 'You defeated The Donald! Congrats, President-Elect Hillary', type: 'good' }, gameStatus: 2 });
       return true;
     }
   }
@@ -288,7 +313,7 @@ export default App;
 function getRandomCoords(room, grid, width) {
   const x = Math.floor(Math.random() * (room.xRange[1] - room.xRange[0])) + room.xRange[0];
   const y = Math.floor(Math.random() * (room.yRange[1] - room.yRange[0])) + room.yRange[0];
-  return grid[y * width + x] == 0 ? [x,y] : getRandomCoords(room, grid, width);
+  return grid[y * width + x] === 0 ? [x, y] : getRandomCoords(room, grid, width);
 }
 
 function damageCalculation(min, max, weapon) {

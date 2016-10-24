@@ -15,8 +15,8 @@ class Legend extends React.Component {
     const health = Math.floor(this.props.character.health / levels[this.props.character.level] * 100);
     const weaponBonus = weapons[this.props.character.weapon] * 5;
     return (
-      <div className="legendBox">
-        <div className="legend1">
+      <div className='legendBox'>
+        <div className='legend1'>
           <h3>Hillary's Stats</h3>
           <ul>
             <li><strong>Level:</strong> {this.props.character.level}</li>
@@ -26,24 +26,24 @@ class Legend extends React.Component {
           </ul>
           <Lights onChange={this.props.toggleLights}/>
         </div>
-        <div className="legend2">
-          <h3>Good Things</h3>
+        <div className='legend2'>
+          <h3>Good</h3>
           <ul>
-            <li><div className="hillary"></div> Hillary</li>
-            <li><div className="heart"></div> Heart</li>
-            <li><div className="weapon"></div> Weapon</li>
+            <li><div className='hillary'></div></li>
+            <li><div className='heart'></div></li>
+            <li><div className='weapon'></div></li>
           </ul>
         </div>
-        <div className="legend3">
-        <h3>Bad Things</h3>
+        <div className='legend3'>
+        <h3>Bad</h3>
         <ul>
-          <li><div className="surrogate"></div> Surrogates</li>
-          <li><div className="kellyanne"></div> Kellyanne Conway</li>
-          <li><div className="theDonald"></div> The Donald</li>
+          <li><div className='surrogate'></div></li>
+          <li><div className='kellyanne'></div></li>
+          <li><div className='theDonald'></div></li>
         </ul>
         </div>
       </div>
-    )
+    );
   };
 }
 
@@ -57,7 +57,7 @@ class Lights extends React.Component {
     return this.props.onChange(e);
   }
   render() {
-    return (<button className="lights" onClick={this.handleClick}>Toggle Lights</button>)
+    return (<button className='lights' onClick={this.handleClick}>Toggle Lights</button>);
   }
 }
 export default Legend;

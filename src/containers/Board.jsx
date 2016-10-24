@@ -5,29 +5,36 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.reset = this.reset.bind(this);
   }
   handleClick(e) {
     e.preventDefault();
     return this.props.onChange(e);
   }
+  reset() {
+    this.props.reset();
+  }
   render() {
+    console.log(this.props.boardSize.width);
     const intro = (
-      <div onClick={this.handleClick} className="intro">
+      <div onClick={this.handleClick} className='intro'>
         <h2>Welcome</h2>
-        <p>In this game, you play the role of Hillary. Hillary is trying to find and slay her enemy, The Donal, but his merry band of surrogates will do everything they can to stop her. Collect health boosters and new weapons as you progress. You'll need to level up a few times before you're strong enough to defeat the big guy. Best of luck!</p>
-        <p className="small">Use the arrow keys to navigate. Press 'L' to toggle the lights. Click anywhere to begin.</p>
+        <p>In this game, you play the role of Hillary. Hillary is trying to find and slay her enemy, The Donald, but his merry band of surrogates will do everything they can to stop her. Collect health boosters and new weapons as you progress. You will need to level up a few times before you acd re strong enough to defeat the big guy. Best of luck!</p>
+        <p className='small'>Use the arrow keys to navigate. Press 'L' to toggle the lights. Click anywhere to begin.</p>
       </div>
-    )
+    );
     const gameOverWin = (
-      <div className="win">
+      <div className='win'>
         <h2>Congratulations!</h2>
         <p>You single-handedly slayed The Donald and his band of surrogates. Congrats!</p>
+        <button onClick={this.reset}>Play Again</button>
       </div>
-    )
+    );
     const gameOver = (
-      <div className="lose">
+      <div className='lose'>
         <h2>Game over</h2>
-        <p>You died. Reload this page to play again.</p>
+        <p>You died. Better luck next time. Reload this page to play again.</p>
+        <button onClick={this.reset}>Play Again</button>
       </div>
     );
     let rows = [];
@@ -47,7 +54,7 @@ class Board extends React.Component {
       }
       rows.push(<Row key={y}>{row}</Row>);
     }
-    const gameOn = (<div className="board">{rows}</div>);
+    const gameOn = (<div className='board'>{rows}</div>);
     if (this.props.gameStatus === 1) {
       return gameOn;
     } else if (this.props.gameStatus === 0) {
@@ -60,7 +67,7 @@ class Board extends React.Component {
   }
 }
 
-const Row = ({children}) => <div className="row">{children}</div>;
+const Row = ({children}) => <div className='row'>{children}</div>;
 
 const Square = ({children, position, lights, thisSquare, width, fill = false}) => (
   <div className={getBackgroundColor(fill, position, lights, thisSquare, width)} >
@@ -75,48 +82,52 @@ function getBackgroundColor(fill, position, lights, thisSquare, width) {
   let sqFill;
   switch (fill) {
     case 1:
-      sqFill = "square wall";
+      sqFill = 'square wall';
       break;
     case 2:
-      sqFill = "square character";
+      sqFill = 'square character';
       break;
     case 11:
-      sqFill = "square level1";
+      sqFill = 'square level1';
       break;
     case 12:
-      sqFill = "square level2";
+      sqFill = 'square level2';
       break;
     case 13:
-      sqFill = "square level3";
+      sqFill = 'square level3';
       break;
     case 14:
-      sqFill = "square level4";
+      sqFill = 'square level4';
       break;
     case 15:
-      sqFill = "square level5";
+      sqFill = 'square level5';
       break;
     case 5:
-      sqFill = "square heart";
+      sqFill = 'square heart';
       break;
     case 6:
-      sqFill = "square weapon";
+      sqFill = 'square weapon';
       break;
     case 3:
-      sqFill = "square theDonald";
+      sqFill = 'square theDonald';
       break;
     default:
-      sqFill = "square floor";
+      sqFill = 'square floor';
       break;
   }
   const posIndex = position[1] * width + position[0];
   const visibleArea = [posIndex, posIndex - 1, posIndex - 2, posIndex + 1, posIndex + 2, posIndex - width, posIndex - width + 1, posIndex - width - 1, posIndex - width - width, posIndex + width, posIndex + width + 1, posIndex + width - 1, posIndex + width + width];
+  const shadowyArea = [posIndex - (3 * width), posIndex + (3 * width), posIndex + (2 * width) + 1, posIndex + (2 * width) - 1, posIndex - (2 * width) + 1, posIndex - (2 * width) - 1, posIndex - width - 2, posIndex - width + 2, posIndex + width - 2, posIndex + width + 2, posIndex - 3, posIndex + 3];
   if (lights === 'on') {
     return sqFill;
   } else {
     if (visibleArea.indexOf(sqIndex) > -1) {
-      return sqFill
+      return sqFill;
+    } else if (shadowyArea.indexOf(sqIndex) > -1) {
+      sqFill += ' lessdark';
+      return sqFill;
     } else {
-      return "square dark";
+      return 'square dark';
     }
   }
 }
