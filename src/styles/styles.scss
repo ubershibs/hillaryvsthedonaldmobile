@@ -1,10 +1,18 @@
 $sqSide: 30px;
 $villain: #b22222;
 
+body {
+  width: 320px;
+  height: 568px;
+  margin: 0 auto;
+  position: relative;
+}
 h1 {
   font-family: monospace;
-  font-size: 50px;
+  font-size: 20px;
   text-align: center;
+  line-height: none;
+  margin-bottom: 5px;
 }
 .board {
   margin: 10px auto;
@@ -27,9 +35,10 @@ h1 {
 
 .messageBox {
   font-family: monospace;
-  font-size: 16px;
-  width: 900px;
-  margin: 10px auto;
+  font-size: 12px;
+  width: 270px;
+  box-sizing: border-box;
+  margin: 5px auto;
   border: 1px solid black;
 }
 
@@ -139,28 +148,29 @@ h1 {
 }
 
 .lose, .win, .intro {
+  position: relative;
   box-sizing: border-box;
-  width: 900px;
-  max-height: 550px;
-  padding: 10px;
+  width: 270px;
+  padding: 5px;
+  z-index: 100;
   height: auto;
   margin: 10px auto;
   font-family: monospace;
   border: 2px solid black;
   text-align: center;
   h2 {
-    font-size: 50px;
-    margin: 50px auto;
+    font-size: 18px;
+    margin: 5px auto;
   }
   p {
     display: block;
-    margin-bottom: 30px;
-    font-size: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
   }
   .small {
     display: block;
     margin-bottom: 10px;
-    font-size: 12px;
+    font-size: 10px;
   }
   button {
     width: 200px;
@@ -170,8 +180,8 @@ h1 {
     font-weight: 500;
     background-color: dodgerblue;
     font-family: monospace;
-    font-size: 25px;
-    margin-bottom:  50px;
+    font-size: 18px;
+    margin-bottom:  10px;
     &:hover {
       background-color: darken(dodgerblue, 30%);
     }
@@ -197,15 +207,17 @@ h1 {
 }
 
 .legend1 {
-  margin: 0 20px;
+  margin: 0 10px;
   h3 {
     font-family: monospace;
-    font-size: 20px;
-    text-align: center;
+    font-size: 16px;
+    text-align: left;
+    margin: 5px auto;
   }
   ul {
     list-style: none;
     padding-left: 0;
+    margin: 5px auto;
   }
   li {
     font-family: monospace;
@@ -213,15 +225,17 @@ h1 {
 }
 
 .legend2, .legend3 {
-  margin: 0 20px;
+  margin: 0 10px;
   h3 {
     font-family: monospace;
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
+    margin: 5px auto;
   }
   ul {
     list-style: none;
     padding-left: 0;
+    margin: 5px auto;
   }
   li {
     font-family: monospace;
@@ -268,7 +282,7 @@ h1 {
 }
 
 .lessdark {
-  box-shadow: inset 0 0 0 1000px rgba(0,0,0,.8);
+  box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6);
 }
 
 .small {
@@ -276,5 +290,34 @@ h1 {
   text-align: center;
   font-family: monospace;
   font-size: 15px;
-  margin: 20px auto;
+  margin: 10px auto;
+}
+
+.controls {
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  box-sizing: border-box;
+  height: 60px;
+  display: block;
+  position: absolute;
+  bottom: 10px;
+  margin-top: 5px;
+  z-index: 5;
+}
+
+.arrow {
+  box-sizing: border-box;
+  border: 2px solid darkgray;
+  width: 25%;
+  height: 60px;
+  margin: auto;
+  font-size: 40px;
+  font-weight: 700;
 }

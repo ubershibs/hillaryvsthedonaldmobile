@@ -1,14 +1,11 @@
 {
-  "name": "hillary-dungeon-crawler",
+  "name": "hillary-dungeon-crawler-mobile",
   "version": "1.0.0",
   "description": "Help Hillary defeat Trump and his band of surrogates, break the glass ceiling, and win the White House. Built with React and Redux, for Free Code Camp's 'Build a Roguelike Dungeon Crawler' project.",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*@(.js|.jsx)\"",
-    "test:watch": "npm run test -- --watch",
     "start": "webpack-dev-server --progress",
-    "build": "npm run lint && cross-env NODE_ENV=production webpack --config webpack.config.prod.js && ncp index.html dist/index.html",
-    "deploy": "npm run build && git commit dist -m \"Deploy\" && git push origin master && git subtree push --prefix dist origin gh-pages",
+    "build": "npm run lint && cross-env NODE_ENV=production webpack --config webpack.config.js && ncp index.html dist/index.html",
     "lint": "eslint ."
   },
   "repository": {
@@ -38,17 +35,11 @@
     "eslint-plugin-standard": "^1.3.2",
     "file-loader": "^0.8.5",
     "image-webpack-loader": "^3.0.0",
-    "jsdom": "^9.8.0",
     "json-loader": "^0.5.4",
-    "mocha": "^3.1.2",
     "ncp": "^2.0.0",
     "node-sass": "^3.10.1",
     "postcss-loader": "^0.9.1",
     "react-hot-loader": "^3.0.0-beta.2",
-    "redux-devtools": "^3.3.1",
-    "redux-devtools-dock-monitor": "^1.1.1",
-    "redux-devtools-log-monitor": "^1.0.11",
-    "redux-logger": "^2.6.1",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
@@ -58,15 +49,9 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "extract-text-webpack-plugin": "^1.0.1",
-    "immutable": "^3.8.1",
     "lodash": "^4.16.4",
-    "promise": "^7.1.1",
     "react": "^15.1.0",
-    "react-addons-test-utils": "^15.3.2",
-    "react-dom": "^15.1.0",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2"
+    "react-dom": "^15.1.0"
   },
   "babel": {
     "presets": [

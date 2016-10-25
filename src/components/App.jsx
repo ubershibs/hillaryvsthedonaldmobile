@@ -1,7 +1,8 @@
 import React from 'react';
-import Board from '../containers/Board';
-import Legend from '../containers/Legend';
-import Message from '../components/Message';
+import Board from './Board';
+import Legend from './Legend';
+import Message from './Message';
+import Controls from './Controls';
 import _ from 'lodash';
 require('../styles/styles.scss');
 
@@ -30,7 +31,6 @@ class App extends React.Component {
     const boardSize = { width: 9, height: 9 };
     const viewMaskWidth = [this.state.position[0] - 4, this.state.position[0] + 4];
     const viewMaskHeight = [this.state.position[1] - 4, this.state.position[1] + 4];
-    console.log(viewMaskHeight, viewMaskWidth);
     for (let y = viewMaskHeight[0]; y <= viewMaskHeight[1]; y++) {
       for (let x = viewMaskWidth[0]; x <= viewMaskWidth[1]; x++) {
         if (y < 0 || x < 0 || x >= this.state.boardSize.width || y >= this.state.boardSize.width) {
@@ -48,6 +48,7 @@ class App extends React.Component {
           <Message message={this.state.message.text} type={this.state.message.type} />
         </div>
          <Board onChange={this.hideIntro} reset={this.reset} gameStatus = {this.state.gameStatus} lights={this.state.lights} boardSize={boardSize} grid={viewMask} position={[4, 4]} />
+         <Controls onChange={this.checkMove} />
       </div>
     );
   }
@@ -106,9 +107,6 @@ class App extends React.Component {
     const newState3 = this.placeHealth(newState2);
     const newState4 = this.placeWeapons(newState3);
     return newState4;
-  }
-  componentWillMount() {
-    console.log('componentWillMount');
   }
   componentDidMount() {
     window.addEventListener('keydown', this.debounceHandleKey, false);
@@ -252,14 +250,14 @@ class App extends React.Component {
     const boost = Math.floor(0.80 * levels[level] * (Math.random() * (1 - 0.08) + 0.8));
     const character = this.state.character;
     character.health = character.health + boost > levels[level] ? levels[level] : character.health + boost;
-    this.setState({character: character, message: {text: `You collected a health booster. Health level is now ${character.health / levels[level] * 100}%`, type: 'good'}});
+    this.setState({character: character, message: {text: `Picked up booster - health is now ${character.health / levels[level] * 100}%`, type: 'good'}});
   }
   boostWeapon() {
     const weapons = ['Free Speech', 'a Yale Law Degree', 'a Grammy for Best Spoken Word Album', 'a private email server', 'the Democratic Party nomination'];
     const character = this.state.character;
     character.weapon += 1;
     character.xp += 20;
-    this.setState({ character: character, message: `You picked up ${weapons[character.weapon]}. 10% battle bonus.`, type: 'good' });
+    this.setState({ character: character, message: `Picked up ${weapons[character.weapon]} (10% bonus)`, type: 'good' });
   }
   fightVillain(type, x, y) {
     const levels = [0, 100, 250, 450, 700, 1000, 1350, 1750, 2200, 2700];
@@ -272,11 +270,11 @@ class App extends React.Component {
     if (opponent.health > 0) {
       you.health -= damageCalculation(opponent.level * 10, opponent.level * 20, 0);
       if (you.health > 0) {
-        this.setState({ villains: villains, character: you, message: { text: `Level ${opponent.level} surrogate: you reduced his health to ${Math.floor(opponent.health / levels[opponent.level] * 100)}%; he reduced yours to ${Math.floor(you.health / levels[you.level] * 100)}%.`, type: 'hit flash' } });
+        this.setState({ villains: villains, character: you, message: { text: `Level ${opponent.level} surrogate health: ${Math.floor(opponent.health / levels[opponent.level] * 100)}%. Yours: ${Math.floor(you.health / levels[you.level] * 100)}%.`, type: 'hit flash' } });
         return false;
       } else if (you.health <= 0) {
         you.health = 0;
-        this.setState({ villains: villains, character: you, message: { text: `Level ${opponent.level} surrogate: he killed you. Game over.`, type: 'alert' }, gameStatus: 0 });
+        this.setState({ villains: villains, character: you, message: { text: `Level ${opponent.level} surrogate killed you. Game over.`, type: 'alert' }, gameStatus: 0 });
         return false;
       }
     } else if (opponent.health <= 0) {
@@ -294,7 +292,7 @@ class App extends React.Component {
     if (theDonald > 0) {
       you.health -= damageCalculation(80, 140, 0);
       if (you.health > 0) {
-        this.setState({ character: you, theDonald: theDonald, message: { text: `You reduced The Donald's health to ${Math.floor(theDonald / 1000 * 100)}%; he reduced yours to ${Math.floor(you.health / levels[you.level] * 100)}%`, type: 'hit' } });
+        this.setState({ character: you, theDonald: theDonald, message: { text: `Hit! The Donald's health: ${Math.floor(theDonald / 1000 * 100)}%. Yours: ${Math.floor(you.health / levels[you.level] * 100)}%`, type: 'hit' } });
         return false;
       } else if (you.health <= 0) {
         you.health = 0;
