@@ -1,5 +1,5 @@
 {
-  "name": "hillary-dungeon-crawler-mobile",
+  "name": "hillary-vs-the-donald-mobile",
   "version": "1.0.0",
   "description": "Help Hillary defeat Trump and his band of surrogates, break the glass ceiling, and win the White House. Built with React and Redux, for Free Code Camp's 'Build a Roguelike Dungeon Crawler' project.",
   "main": "webpack.config.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/Ubershibs/dungeon_crawler"
+    "url": "git+https://github.com/ubershibs/hillaryvsthedonaldmobile"
   },
   "author": "Luke Walker <luke.walker@gmail.com> (http://lukewalker.org)",
   "license": "MIT",
   "bugs": {
-    "url": "https://bitbucket.org/Ubershibs/dungeon_crawler/issues"
+    "url": "https://github.com/ubershibs/hillaryvsthedonaldmobile/issues"
   },
-  "homepage": "https://bitbucket.org/Ubershibs/dungeon_crawler#readme",
+  "homepage": "https://github.com/ubershibs/hillaryvsthedonaldmobile#readme",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.9.1",
