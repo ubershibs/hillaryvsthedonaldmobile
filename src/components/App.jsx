@@ -87,7 +87,7 @@ class App extends React.Component {
         weapon: 0
       },
       message: {
-        text: 'Use arrow keys to move',
+        text: 'Use arrow buttons to move',
         type: 'inform'
       },
       villains: [],
@@ -236,7 +236,7 @@ class App extends React.Component {
       validMove = this.fightTheDonald();
     } else {
       validMove = true;
-      this.setState({ message: { type: 'inform', text: 'Use arrow keys to move' } });
+      this.setState({ message: { type: 'inform', text: 'Use arrow buttons to move' } });
     }
     if (validMove) {
       grid[this.state.position[1] * this.state.boardSize.width + this.state.position[0]] = 0;
