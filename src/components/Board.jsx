@@ -32,7 +32,7 @@ class Board extends React.Component {
     const gameOver = (
       <div className='lose'>
         <h2>Game over</h2>
-        <p>You died. Better luck next time. Reload this page to play again.</p>
+        <p>You died. Better luck next time.</p>
         <button onClick={this.reset}>Play Again</button>
       </div>
     );
